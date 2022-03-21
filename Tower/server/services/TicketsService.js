@@ -10,7 +10,7 @@ class TicketsService {
           const eventTicket = mongooseDocument.toJSON()
           return {
             ticketId: eventTicket.id,
-            // amount: eventTicket.amount,
+            accountId: query.accountId,
             ...eventTicket.towerEvent
           }
         })
@@ -22,7 +22,7 @@ class TicketsService {
           const goerTicket = mongooseDocument.toJSON()
           return {
             ticketId: goerTicket.id,
-            // amount: goerTicket.amount,
+            eventId: query.eventId,
             ...goerTicket.EventGoer
           }
         })
@@ -38,6 +38,10 @@ class TicketsService {
     
     async create(body) {
         const event = await towerEventsService.getById(body.eventId)
+        if(event.capacity <= 0) {
+          throw new BadRequest('No more tickets')
+        }
+
         const ticketEvent = await dbContext.Tickets.create(body)
 
         event.capacity = event.capacity - 1
