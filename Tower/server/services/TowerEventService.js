@@ -31,16 +31,15 @@ class TowerEventsService {
         }
         original.name = update.name
         original.description = update.description
-        // original.isCanceled = update.isCanceled || false
         original.save()
         return original
     }
 
     async cancel(id, userId) {
         const original = await dbContext.TowerEvents.findById(id)
-        // if(original.accountId.toString() !== userId) {
-        //     throw new BadRequest('You cannot remove this project')
-        // }
+        if(original.creatorId.toString() !== userId) {
+            throw new BadRequest('You cannot remove this Event')
+        }
         original.isCanceled = !original.isCanceled
         await original.save()
         return original.isCanceled ? 'Is Canceled' : 'Is Not Canceled'

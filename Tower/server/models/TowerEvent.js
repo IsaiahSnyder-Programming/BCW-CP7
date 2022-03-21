@@ -15,8 +15,8 @@ export const TowerEventSchema = new Schema(
         description: { type: String, required: true },
         coverImg: { type: String, required: true },
         location: { type: String, required: true },
-        capacity: { type: Number, required: true },
-        startDate: { type: String, required: true, min: todaysDate },
+        capacity: { type: Number, required: true, min: 0 },
+        startDate: { type: Date, required: true, min: new Date },
         type: { type: String, required: true },
         isCanceled: { type: Boolean, required: true, default: false },
         creatorId: { type: ObjectId, ref: 'Profile', required: true }
