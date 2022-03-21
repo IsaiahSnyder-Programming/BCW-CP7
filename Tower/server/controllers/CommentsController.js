@@ -11,6 +11,15 @@ export class CommentsController extends BaseController {
             .delete('/:id', this.remove)
     }
 
+    async getAll(req, res, next) {
+        try {
+            const comments = await commentsService.getAll(req.query)
+            return res.send(comments)
+        } catch (error) {
+            next(error)
+        }
+    }
+
     async create(req, res, next) {
         try {
             req.body.creatorId = req.userInfo.id
@@ -26,6 +35,16 @@ export class CommentsController extends BaseController {
         try {
             await commentsService.remove(req.params.id, req.userInfo.id)
             return res.send('Comment Deleted')
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async getEventComments(req, res, next) {
+        try {
+            // const sprints = sprintsService.getAll({ projectId: req.params.id })
+            const sprints = await commentsService.getEventComments(req.params.id)
+            return res.send(sprints)
         } catch (error) {
             next(error)
         }

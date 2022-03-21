@@ -7,12 +7,22 @@ class CommentsService {
         return comment
     }
 
+    async getAll(query = {}) {
+        const comment = await dbContext.Comments.findById(query).populate('creator', 'name picture')
+        return comment
+    }
+
     async getById(id) {
         const comment = await dbContext.Comments.findById(id).populate('creator', 'name picture')
         if (!comment) {
             throw new BadRequest('Invalid Comment Id')
         }
         return comment
+    }
+
+    async getEventComments(id) {
+        const sprints = await dbContext.Comments.find({ eventId: id }).populate('creator', 'name picture')
+        return sprints
     }
 
     async remove(id, userId) {
