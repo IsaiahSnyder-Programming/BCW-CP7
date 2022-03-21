@@ -2,6 +2,13 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
+const today = new Date();
+const dd = String(today.getDate()).padStart(2, '0');
+const mm = String(today.getMonth() + 1).padStart(2, '0');
+const yyyy = today.getFullYear();
+
+const todaysDate = mm + '/' + dd + '/' + yyyy;
+
 export const TowerEventSchema = new Schema(
     {
         name: { type: String, required: true },
@@ -9,7 +16,7 @@ export const TowerEventSchema = new Schema(
         coverImg: { type: String, required: true },
         location: { type: String, required: true },
         capacity: { type: Number, required: true },
-        startDate: { type: String, required: true },
+        startDate: { type: String, required: true, min: todaysDate },
         type: { type: String, required: true },
         isCanceled: { type: Boolean, required: true, default: false },
         creatorId: { type: ObjectId, ref: 'Profile', required: true }
