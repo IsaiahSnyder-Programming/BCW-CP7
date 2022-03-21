@@ -93,13 +93,14 @@ import { useRouter } from 'vue-router'
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
 import { towerEventService } from '../services/TowerEventService'
+import { Modal } from 'bootstrap'
 export default {
-    props: {
-        towerEvent: {
-            type: Object,
-            required: true
-        }
-    },
+    // props: {
+    //     towerEvent: {
+    //         type: Object,
+    //         required: true
+    //     }
+    // },
     setup(props) {
         const router = useRouter()
         const state = reactive({
