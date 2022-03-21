@@ -10,6 +10,7 @@ class TicketsService {
           const eventTicket = mongooseDocument.toJSON()
           return {
             ticketId: eventTicket.id,
+            // amount: eventTicket.amount,
             ...eventTicket.towerEvent
           }
         })
@@ -21,6 +22,7 @@ class TicketsService {
           const goerTicket = mongooseDocument.toJSON()
           return {
             ticketId: goerTicket.id,
+            // amount: goerTicket.amount,
             ...goerTicket.EventGoer
           }
         })
@@ -35,9 +37,11 @@ class TicketsService {
     }
     
     async create(body) {
-        const ticket = await towerEventsService.getById(body.eventId)
+        const event = await towerEventsService.getById(body.eventId)
         const ticketEvent = await dbContext.Tickets.create(body)
-        await ticket.save()
+
+        event.capacity = event.capacity - 1
+        await event.save()
         return ticketEvent
     }
 

@@ -21,8 +21,8 @@ class CommentsService {
     }
 
     async getEventComments(id) {
-        const sprints = await dbContext.Comments.find({ eventId: id }).populate('creator', 'name picture')
-        return sprints
+        const comments = await dbContext.Comments.find({ eventId: id }).populate('creator', 'name picture')
+        return comments
     }
 
     async remove(id, userId) {
