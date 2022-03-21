@@ -29,7 +29,7 @@ class TicketsService {
       }
 
       async getById(id) {
-        const ticket = await dbContext.Tickets.findById(id).populate('creator', 'name picture')
+        const ticket = await dbContext.Tickets.findById(id).populate('EventGoer', 'name picture')
         if (!ticket) {
             throw new BadRequest('Invalid Ticket Id')
         }
@@ -50,10 +50,13 @@ class TicketsService {
     }
 
     async remove(id, userId) {
-        const original = await this.getById(id)
-        if(original.creatorId.toString() !== userId) {
-            throw new BadRequest('You cannot remove this project')
+      const original = await this.getById(id)
+      const event = await towerEventsService.getById(original.eventId)
+        if(original.accountId.toString() !== userId) {
+            throw new BadRequest('You cannot remove this ticket')
         }
+        event.capacity = event.capacity + 1
+        await event.save()
         await dbContext.Tickets.findOneAndDelete({ _id: id})
     }
 }

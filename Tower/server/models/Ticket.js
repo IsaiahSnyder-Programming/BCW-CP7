@@ -12,7 +12,7 @@ export const TicketSchema = new Schema(
     { timestamps: true, toJSON: { virtuals: true } }
 )
 
-// TicketSchema.index({ eventId: 1, accountId: 1 }, { unique: true })
+TicketSchema.index({ eventId: 1, accountId: 1 }, { unique: true })
 
 
 TicketSchema.virtual('TowerEvent', {
