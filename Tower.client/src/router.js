@@ -21,7 +21,12 @@ const routes = [
     name: 'Account',
     component: loadPage('AccountPage'),
     beforeEnter: authGuard
-  }
+  },
+  {
+    path: '/events',
+    name: 'TowerEvents',
+    component: loadPage('TowerEventPage')
+  },
 ]
 
 export const router = createRouter({
