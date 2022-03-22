@@ -11,7 +11,7 @@ class TicketsService {
           return {
             ticketId: eventTicket.id,
             accountId: query.accountId,
-            ...eventTicket.towerEvent
+            ...eventTicket.TowerEvent
           }
         })
       }
