@@ -8,6 +8,9 @@
                 </div>
             </div>
         </div>
+        <div v-if="account.id == towerEvent.creatorId" class="btn btn-outline-danger" @click="remove">
+            <i class="mdi mdi-delete"></i>
+        </div>
     </div>
 </template>
 
