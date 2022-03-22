@@ -16,8 +16,7 @@
             </div>
 
             <div class="col-6">
-                <div v-if="activeTowerEvent.isCanceled == false ">
-                    <button class="btn btn-outline-primary" @click="getTicket">Get Tickets</button>
+                <div v-if="activeTowerEvent.isCanceled == false">
                     <div v-if="account.id == activeTowerEvent.creatorId">
                         <i
                             v-if="account.id == activeTowerEvent.creatorId"
@@ -30,13 +29,22 @@
                 <div v-else>
                     <h1 class="text-danger">Event Canceled</h1>
                 </div>
+
+                <div v-if="activeTowerEvent.isCanceled == false">
+                    <div v-if="eventTickets">
+                        <h1 class="text-danger">You have a ticket already</h1>
+                    </div>
+                    <div v-else>
+                        <button class="btn btn-outline-primary" @click="getTicket">Get Tickets</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="col-12 shadow">
-        <div class="row px-5 mb-5 justify-content-center">
-            <div v-for="t in tickets" :key="t.id" class="col-1 mx-5">
+        <div class="row px-5 mb-5 d-flex">
+            <div v-for="t in tickets" :key="t.id" class="mx-5">
                 <Ticket :ticket="t" />
             </div>
         </div>
@@ -130,7 +138,9 @@ export default {
             account: computed(() => AppState.account),
             profile: computed(() => AppState.profile),
             comments: computed(() => AppState.comments),
-            activeTowerEvent: computed(() => AppState.activeTowerEvent)
+            activeTowerEvent: computed(() => AppState.activeTowerEvent),
+            tickets: computed(() => AppState.tickets),
+            eventTickets: computed(() => AppState.tickets.find(t => t.eventId == route.params.id))
         }
     }
 }
