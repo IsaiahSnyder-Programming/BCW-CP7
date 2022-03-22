@@ -71,16 +71,6 @@
             />
         </div>
 
-        <div class="col-md-8 mb-2">
-            <label for="" class="form-label"><b>isCanceled</b></label>
-            <input
-                v-model="state.editable.isCanceled"
-                type="checkbox"
-                class="form-control"
-                aria-describedby="helpId"
-            />
-        </div>
-
         <div class="col-12 d-flex justify-content-end">
             <button class="btn btn-primary">Create</button>
         </div>
