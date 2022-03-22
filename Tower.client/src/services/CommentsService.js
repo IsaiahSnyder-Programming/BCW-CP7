@@ -16,6 +16,13 @@ class CommentsService {
         logger.log('GetAll Comments', res.data)
         AppState.comments = res.data
     }
+
+    async remove(id){
+        const res = await api.delete('api/comments/'+ id)
+        logger.log('[delete project]', res.data)
+        // AppState.activeProject = {}
+        AppState.comments = AppState.comments.filter(c => c.id != id)
+      }
 }
 
 export const commentsService = new CommentsService()

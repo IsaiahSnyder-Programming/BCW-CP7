@@ -16,6 +16,10 @@
     <div class="col-12">
       <h6>{{ comment.body }}</h6>
     </div>
+
+    <div v-if="account.id == comment.creatorId" class="btn btn-outline-danger" @click="remove">
+      <i class="mdi mdi-delete"></i>
+    </div>
   </div>
 
 </template>
@@ -50,6 +54,18 @@ export default {
       account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
       comments: computed(() => AppState.comments),
+
+      async remove() {
+          try {
+              if(await Pop.confirm()) {
+                  await commentsService.remove(props.comment.id)
+                  Pop.toast("Deleted Project")
+              }
+          } catch (error) {
+              logger.log(error)
+              Pop.toast(error.message, "error")
+          }
+      }
     }
   }
 }
