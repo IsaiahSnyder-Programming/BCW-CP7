@@ -7,16 +7,14 @@
         <Search />
       </div>
 
-      <div class="col-1 bg-dark d-flex align-items-center">
-        <!-- NOTE Move down inside the i-tag -->
+      <!-- <div class="col-1 bg-dark d-flex align-items-center">
         <i
           v-if="account.id"
           data-bs-toggle="modal"
           data-bs-target="#create-tower-event"
           class="mdi mdi-pencil selectable"
         >New Event</i>
-      </div>
-      <!-- End of note -->
+      </div> -->
 
     </div>
 

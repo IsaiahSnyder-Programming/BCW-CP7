@@ -47,6 +47,12 @@
         <template #body> <CreateComment :eventId="activeTowerEvent.id" /> </template>
         <template #footer> Footer </template>
     </Modal>
+
+    <Modal id="create-tower-event" >
+      <template #title> New Event </template>
+      <template #body> <CreateTowerEvent /> </template>
+      <template #footer> Footer </template>
+    </Modal>
 </template>
 
 <script>

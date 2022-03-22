@@ -19,12 +19,12 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link
-            :to="{ name: 'About' }"
-            class="btn text-success lighten-30 selectable text-uppercase"
-          >
-            About
-          </router-link>
+          <i
+          v-if="account.id"
+          data-bs-toggle="modal"
+          data-bs-target="#create-tower-event"
+          class="mdi mdi-pencil selectable"
+        >New Event</i>
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
@@ -34,9 +34,13 @@
 </template>
 
 <script>
+import { computed } from '@vue/reactivity';
+import { AppState } from '../AppState';
 export default {
   setup() {
-    return {};
+    return {
+      account: computed(() => AppState.account),
+    };
   },
 };
 </script>
