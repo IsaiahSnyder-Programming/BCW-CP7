@@ -10,10 +10,17 @@
 
 
             <div class="d-flex justify-content-end">
-                <button class="btn btn-outline-primary" @click="getTicket">Get Tickets</button>
-                <div v-if="account.id == activeTowerEvent.creatorId" class="btn btn-outline-danger" @click="remove">
-                <i class="mdi mdi-delete"></i>
+                <div v-if="account.id == activeTowerEvent.creatorId" class="btn btn-outline-danger" @click="cancel">
+                <i>Cancel Event</i>
+                </div>
+            </div>
 
+            <div class="col-6">
+                <div v-if="activeTowerEvent.isCanceled == false">
+                    <button class="btn btn-outline-primary" @click="getTicket">Get Tickets</button>    
+                </div>
+                <div v-else>
+                    <h1 class="text-danger">Event Canceled</h1>
                 </div>
             </div>
         </div>
@@ -94,14 +101,10 @@ export default {
                     Pop.toast(error.message, 'error')
                 }
             },
-            async remove() {
+            async cancel() {
                 try {
                     if(await Pop.confirm()) {
-                        router.push(
-                            {
-                                name: 'Home'
-                            })
-                        await towerEventService.remove(this.activeTowerEvent.id)
+                        await towerEventService.cancel(this.activeTowerEvent.id)
                         Pop.toast("Deleted Tower Event")
                     }
                 } catch (error) {

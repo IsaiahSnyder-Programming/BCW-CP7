@@ -24,11 +24,14 @@ class TowerEventService {
         return res.data
     }
 
-    async remove(id){
+    async cancel(id){
         const res = await api.delete('api/events/'+ id)
         logger.log('[delete event]', res.data)
-        // AppState.activeProject = {}
-        AppState.towerEvents = AppState.towerEvents.filter(p => p.id != id)
+        AppState.towerEvents.isCanceled = !AppState.towerEvents.isCanceled
+        // AppState.towerEvents = AppState.towerEvents.filter(p => p.id != id)
+
+        // let index = AppState.towerEvents.findIndex(e => p.id === id) 
+        // AppState.towerEvents.splice(index, 1, )?
     }
 }
 

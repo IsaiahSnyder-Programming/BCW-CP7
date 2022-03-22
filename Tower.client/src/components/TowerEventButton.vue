@@ -24,11 +24,19 @@
             <div v-else>
                 <h1 class="text-danger">Sold Out</h1>
             </div>
+        </div>        
+        <div class="col-6">
+            <div v-if="towerEvent.isCanceled == false">
+                <h1 class="text-dark"></h1>
+            </div>
+            <div v-else>
+                <h1 class="text-danger">Event Canceled</h1>
+            </div>
         </div>
 
-        <div v-if="account.id == towerEvent.creatorId" class="btn btn-outline-danger" @click="remove">
+        <!-- <div v-if="account.id == towerEvent.creatorId" class="btn btn-outline-danger" @click="remove">
             <i class="mdi mdi-delete"></i>
-        </div>
+        </div> -->
     </div>
 </template>
 
