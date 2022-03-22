@@ -5,6 +5,7 @@ import { api } from "./AxiosService"
 class TowerEventService {
 
     async getAll(query = {}) {
+        logger.log('towerEventService', query)
         const res = await api.get('api/events', {params: query})
         logger.log(res.data)
         AppState.towerEvents = res.data
@@ -45,6 +46,11 @@ class TowerEventService {
         const res = await api.get('api/events/' + eventId + '/tickets')
         logger.log('get tickets res', res.data)
         AppState.tickets = res.data
+    }
+
+    async filterEvents(string) {
+        const res = await api.get('api/events/', string)
+        logger.log('TowerEventService', res.data)
     }
 }
 

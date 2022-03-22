@@ -17,6 +17,13 @@ class AccountService {
     logger.log('getAccountTickets res.data',res.data)
     AppState.accountTickets = res.data
   }
+
+  async remove(id) {
+    logger.log('accountService id', id)
+    const res = await api.delete('api/tickets/' + id)
+    logger.log('accountService removeTicket', res.data)
+    AppState.tickets = AppState.tickets.filter(t => t.id != id)
+  }
 }
 
 export const accountService = new AccountService()

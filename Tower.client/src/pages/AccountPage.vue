@@ -8,8 +8,11 @@
   
     <div class="col-12 shadow">
       <div class="row px-5 mb-5 d-flex">
-          <div v-for="t in accountTickets" :key="t.id" class="col-4 px-5">
+          <div v-for="t in accountTickets" :key="t.id" class="px-5">
               <TowerEventButton :towerEvent="t" />
+            <div class="btn btn-outline-danger" @click="remove(t.ticketId)">
+              <i class="mdi mdi-delete"></i>
+            </div>
           </div>
       </div>
     </div>
@@ -24,6 +27,12 @@ import Pop from '../utils/Pop'
 import { useRoute } from 'vue-router'
 export default {
   name: 'Account',
+  props: {
+    ticket: {
+      type: Object,
+      required: true
+    }
+  },
   setup() {
     const route = useRoute()
     // NOTE on mounted or watch effect, make the api call to your account/tickets and acccount/events
@@ -36,6 +45,17 @@ export default {
       }
     })
     return {
+      async remove(id) {
+          try {
+              if(await Pop.confirm()) {
+                  await accountService.remove(id)
+                  Pop.toast("Deleted Ticket")
+              }
+          } catch (error) {
+              logger.error(error)
+              Pop.toast(error.message, "error")
+          }
+      },
       account: computed(() => AppState.account),
       tickets: computed(() => AppState.tickets),
       accountTickets: computed(() => AppState.accountTickets)

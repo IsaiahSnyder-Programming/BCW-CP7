@@ -6,16 +6,19 @@
       <div class="col-4 bg-dark">
         <Search />
       </div>
-
-      <!-- <div class="col-1 bg-dark d-flex align-items-center">
-        <i
-          v-if="account.id"
-          data-bs-toggle="modal"
-          data-bs-target="#create-tower-event"
-          class="mdi mdi-pencil selectable"
-        >New Event</i>
-      </div> -->
-
+      
+      <button class="btn btn-outline-primary col-2" @click="filterEvents('Sport')">
+        <h3>Sport</h3>
+      </button>
+      <button class="btn btn-outline-primary col-2" @click="filterEvents('Digital')">
+        <h3>Digital</h3>
+      </button>
+      <button class="btn btn-outline-primary col-2" @click="filterEvents('Banger')">
+        <h3>Banger</h3>
+      </button>
+      <button class="btn btn-outline-primary col-2" @click="filterEvents()">
+        <h3>All</h3>
+      </button>
     </div>
 
 
@@ -53,6 +56,9 @@ export default {
       }
     })
     return {
+      async filterEvents(string) {
+        await towerEventService.getAll({ type: string })
+      },
       towerEvents: computed(() => AppState.towerEvents),
       account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
