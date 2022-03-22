@@ -6,6 +6,11 @@
         <div class="col-6">
             <h1>{{ activeTowerEvent.name }}</h1>
             <h6>{{ activeTowerEvent.description }}</h6>
+            <h6>Location: {{ activeTowerEvent.location }}</h6>
+            <h1>Remaining Capacity: {{ activeTowerEvent.capacity }}</h1>
+            <h6>{{ new Date( activeTowerEvent.startDate).toLocaleDateString() }}</h6>
+            <h1>Type: {{ activeTowerEvent.type }}</h1>
+
 
 
 
