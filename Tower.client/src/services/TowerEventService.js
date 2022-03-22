@@ -26,7 +26,7 @@ class TowerEventService {
 
     async update(updateBody) {
         logger.log('TOwerEventsService UpdateBody',updateBody)
-        const res = await api.put('api/events', updateBody)
+        const res = await api.put('api/events/' + updateBody.id, updateBody)
         logger.log('[update TowerEvent]', res.data)
         AppState.activeTowerEvent = res.data
       }
@@ -39,6 +39,12 @@ class TowerEventService {
 
         // let index = AppState.towerEvents.findIndex(e => p.id === id) 
         // AppState.towerEvents.splice(index, 1, )?
+    }
+
+    async getTicketsByEvent(eventId){
+        const res = await api.get('api/events/' + eventId + '/tickets')
+        logger.log('get tickets res', res.data)
+        AppState.tickets = res.data
     }
 }
 

@@ -16,7 +16,7 @@
             </div>
 
             <div class="col-6">
-                <div v-if="activeTowerEvent.isCanceled == false">
+                <div v-if="activeTowerEvent.isCanceled == false ">
                     <button class="btn btn-outline-primary" @click="getTicket">Get Tickets</button>
                     <div v-if="account.id == activeTowerEvent.creatorId">
                         <i
@@ -100,6 +100,7 @@ export default {
                 try {
                     await towerEventService.getById({ id: route.params.id })
                     await commentsService.getAll({ id: route.params.id })
+                    await towerEventService.getTicketsByEvent(route.params.id)
                 } catch (error) {
                     logger.error(error)
                     Pop.toast(error.message, "error")
@@ -109,7 +110,7 @@ export default {
         return {
             async getTicket() {
                 try {
-                    await ticketsService.create(route.params.id)
+                    await ticketsService.create({eventId: route.params.id})
                 } catch (error) {
                     logger.log(error)
                     Pop.toast(error.message, 'error')

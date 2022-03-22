@@ -12,6 +12,7 @@ import { AppState } from '../AppState'
 export default {
   name: 'Account',
   setup() {
+    // NOTE on mounted or watch effect, make the api call to your account/tickets and acccount/events
     return {
       account: computed(() => AppState.account)
     }

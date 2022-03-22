@@ -1,6 +1,6 @@
 <template>
     <div class="row d-flex justify-content-center bg-light rounded-2">
-        <div class="selectable d-flex align-items-center m-2" @click="goTo('TowerEvents')">
+        <div class="selectable d-flex align-items-center m-2" @click="goTo()">
             <div class="col-12 d-flex flex-column justify-content-center align-items-middle">
                 <div class="row bg-light rounded text-start text-dark p-3">
                     <div class="col-6">
@@ -11,7 +11,7 @@
                         <h4>{{ towerEvent.name }}</h4>
                         <h5>{{ towerEvent.description }}</h5>
                         <h5>{{ towerEvent.location }}</h5>
-                        <h6>{{ towerEvent.startDate }}</h6>
+                        <h6>{{ new Date( towerEvent.startDate).toLocaleDateString() }}</h6>
                     </div>
                 </div>
             </div>
@@ -57,9 +57,9 @@ export default {
     setup(props) {
         const router = useRouter()
         return {
-            goTo(page) {
+            goTo() {
                 router.push({
-                    name: page,
+                    name: 'TowerEvents',
                     params: {id: props.towerEvent.id}
                 })
             },
