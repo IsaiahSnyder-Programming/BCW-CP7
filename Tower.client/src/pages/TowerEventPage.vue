@@ -1,8 +1,8 @@
 <template>
     <div class="col-6">
-        <img :src="activeTowerEvent.coverImg" alt="">
+        <img class="img-fluid" :src="activeTowerEvent.coverImg" alt="">
         <h1>{{ activeTowerEvent.name }}</h1>
-        <h1>{{ activeTowerEvent.description }}</h1>
+        <h6>{{ activeTowerEvent.description }}</h6>
     </div>
     <div class="col-6 d-flex justify-content-end">
         <div v-if="account.id == activeTowerEvent.creatorId" class="btn btn-outline-danger" @click="remove">
@@ -10,11 +10,26 @@
         </div>
     </div>
 
+    <div class="col-12">
+      <i
+        data-bs-toggle="modal"
+        :data-bs-target="'#create-comment' + activeTowerEvent.id"
+        class="mdi mdi-pencil selectable"
+        >Create New Comment</i
+      >
+    </div>
+
     <div class="row px-5 mb-5 justify-content-center">
         <div v-for="c in comments" :key="c.id" class="col-md-8 mx-5">
             <Comments :comment="c" />
         </div>
     </div>
+
+    <Modal :id="'create-comment' + activeTowerEvent.id">
+        <template #title> Create New Comment {{ activeTowerEvent.name }} </template>
+        <template #body> <CreateComment :eventId="activeTowerEvent.id" /> </template>
+        <template #footer> Footer </template>
+    </Modal>
 </template>
 
 <script>
