@@ -1,12 +1,29 @@
 <template>
-    <div class="col-6">
-        <img class="img-fluid" :src="activeTowerEvent.coverImg" alt="">
-        <h1>{{ activeTowerEvent.name }}</h1>
-        <h6>{{ activeTowerEvent.description }}</h6>
+    <div class="row m-3 shadow">
+        <div class="col-6">
+            <img class="img-fluid" :src="activeTowerEvent.coverImg" alt="">
+        </div>
+        <div class="col-6">
+            <h1>{{ activeTowerEvent.name }}</h1>
+            <h6>{{ activeTowerEvent.description }}</h6>
+
+
+
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-primary" @click="getTicket">Get Tickets</button>
+                <div v-if="account.id == activeTowerEvent.creatorId" class="btn btn-outline-danger" @click="remove">
+                <i class="mdi mdi-delete"></i>
+
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-6 d-flex justify-content-end">
-        <div v-if="account.id == activeTowerEvent.creatorId" class="btn btn-outline-danger" @click="remove">
-          <i class="mdi mdi-delete"></i>
+
+    <div class="col-12 shadow">
+        <div class="row px-5 mb-5 justify-content-center">
+            <div v-for="t in tickets" :key="t.id" class="col-1 mx-5">
+                <Ticket :ticket="t" />
+            </div>
         </div>
     </div>
 
@@ -39,6 +56,7 @@ import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
 import { towerEventService } from '../services/TowerEventService'
 import { commentsService } from '../services/CommentsService'
+import { ticketsService } from '../services/TicketsService'
 import { AppState } from '../AppState'
 export default {
     // props: {
@@ -62,6 +80,14 @@ export default {
             }
         })
         return {
+            async getTicket() {
+                try {
+                    await ticketsService.create(route.params.id)
+                } catch (error) {
+                    logger.log(error)
+                    Pop.toast(error.message, 'error')
+                }
+            },
             async remove() {
                 try {
                     if(await Pop.confirm()) {
