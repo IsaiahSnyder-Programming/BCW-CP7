@@ -28,12 +28,12 @@ import { Modal } from 'bootstrap'
 import { commentsService } from '../services/CommentsService'
 import { AppState } from '../AppState'
 export default {
-    props: {
-        eventId: {
-            type: Object,
-            required: true
-        }
-    },
+    // props: {
+    //     eventId: {
+    //         type: Object,
+    //         required: true
+    //     }
+    // },
     setup(props) {
         const state = reactive({
             editable: {},

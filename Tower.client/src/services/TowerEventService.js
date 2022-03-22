@@ -11,7 +11,6 @@ class TowerEventService {
     }
 
     async getById(id) {
-        logger.log(id.id, 'id test')
         const res = await api.get('api/events/' + id.id)
         logger.log(res.data)
         AppState.activeTowerEvent = res.data

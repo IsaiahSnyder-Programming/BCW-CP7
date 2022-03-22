@@ -100,7 +100,6 @@ export default {
             state,
             async createTowerEvent() {
                 try {
-                    logger.log('editable before service', state.editable)
                     let newTowerEvent = await towerEventService.create(state.editable)
                     state.editable = {}
                     Modal.getOrCreateInstance(document.getElementById('create-tower-event')).hide()
