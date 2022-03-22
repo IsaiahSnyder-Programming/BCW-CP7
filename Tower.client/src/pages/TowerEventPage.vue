@@ -17,7 +17,15 @@
 
             <div class="col-6">
                 <div v-if="activeTowerEvent.isCanceled == false">
-                    <button class="btn btn-outline-primary" @click="getTicket">Get Tickets</button>    
+                    <button class="btn btn-outline-primary" @click="getTicket">Get Tickets</button>
+                    <div v-if="account.id == activeTowerEvent.creatorId">
+                        <i
+                            v-if="account.id == activeTowerEvent.creatorId"
+                            data-bs-toggle="modal"
+                            data-bs-target="#edit-event"
+                            class="mdi mdi-pencil selectable"
+                        >Edit Event</i>
+                    </div>
                 </div>
                 <div v-else>
                     <h1 class="text-danger">Event Canceled</h1>
@@ -58,6 +66,12 @@
     <Modal id="create-tower-event" >
       <template #title> New Event </template>
       <template #body> <CreateTowerEvent /> </template>
+      <template #footer> Footer </template>
+    </Modal>
+
+    <Modal id="edit-event" >
+      <template #title> Edit Event </template>
+      <template #body> <EditTowerEvent /> </template>
       <template #footer> Footer </template>
     </Modal>
 </template>

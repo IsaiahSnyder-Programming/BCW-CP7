@@ -24,6 +24,13 @@ class TowerEventService {
         return res.data
     }
 
+    async update(updateBody) {
+        logger.log('TOwerEventsService UpdateBody',updateBody)
+        const res = await api.put('api/events', updateBody)
+        logger.log('[update TowerEvent]', res.data)
+        AppState.activeTowerEvent = res.data
+      }
+
     async cancel(id){
         const res = await api.delete('api/events/'+ id)
         logger.log('[delete event]', res.data)
