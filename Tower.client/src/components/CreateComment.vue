@@ -3,7 +3,7 @@
     class="row bg-grey darken-20 justify-content-center elevation-3 p-2 m-5"
     @submit.prevent="createComment"
   >
-    <div class="col-md-4 mb-2">
+    <div class="col-md-8 mb-2">
       <label class="form-label"><b>Note Body</b></label>
       <input
         v-model="state.editable.body"
@@ -28,12 +28,12 @@ import { Modal } from 'bootstrap'
 import { commentsService } from '../services/CommentsService'
 import { AppState } from '../AppState'
 export default {
-    // props: {
-    //     eventId: {
-    //         type: Object,
-    //         required: true
-    //     }
-    // },
+    props: {
+        eventId: {
+            type: Object,
+            required: true
+        }
+    },
     setup(props) {
         const state = reactive({
             editable: {},
@@ -43,9 +43,9 @@ export default {
             async createComment() {
                 try {
                     state.editable.eventId = props.eventId
-                    await commentsService.create(state.editable, this.activeTowerEvent)
+                    await commentsService.create(state.editable, state.editable.eventId)
                     state.editable = {}
-                    Modal.getOrCreateInstance(document.getElementById('create-note')).hide()
+                    Modal.getOrCreateInstance(document.getElementById('create-comment')).hide()
                 } catch (error) {
                     logger.log(error)
                     Pop.toast(error.message, 'error')
