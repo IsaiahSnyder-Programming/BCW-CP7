@@ -1,4 +1,6 @@
 <template>
+    <div>
+
     <div class="row m-3 shadow">
         <div class="col-6">
             <img class="img-fluid" :src="activeTowerEvent.coverImg" alt="">
@@ -11,16 +13,13 @@
             <h6>{{ new Date( activeTowerEvent.startDate).toLocaleDateString() }}</h6>
             <h1>Type: {{ activeTowerEvent.type }}</h1>
 
-
-
-
             <div class="d-flex justify-content-end">
                 <div v-if="account.id == activeTowerEvent.creatorId" class="btn btn-outline-danger" @click="cancel">
                 <i>Cancel Event</i>
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="row">
                 <div v-if="activeTowerEvent.isCanceled == false">
                     <div v-if="account.id == activeTowerEvent.creatorId">
                         <i
@@ -36,7 +35,7 @@
                 </div>
 
                 <div v-if="activeTowerEvent.isCanceled == false">
-                    <div v-if="eventTickets">
+                    <div v-if="eventTickets.length > 0">
                         <h1 class="text-danger">You have a ticket already</h1>
                     </div>
                     <div v-else>
@@ -47,7 +46,7 @@
         </div>
     </div>
 
-    <div class="col-12 shadow">
+    <div class="col-12 p-0 shadow">
         <div class="row px-5 mb-5 d-flex">
             <div v-for="t in tickets" :key="t.id" class="mx-5">
                 <Ticket :ticket="t" />
@@ -70,6 +69,7 @@
         </div>
     </div>
 
+    </div>
     <Modal :id="'create-comment' + activeTowerEvent.id">
         <template #title> Create New Comment {{ activeTowerEvent.name }} </template>
         <template #body> <CreateComment :eventId="activeTowerEvent.id" /> </template>
@@ -145,7 +145,7 @@ export default {
             comments: computed(() => AppState.comments),
             activeTowerEvent: computed(() => AppState.activeTowerEvent),
             tickets: computed(() => AppState.tickets),
-            eventTickets: computed(() => AppState.tickets.find(t => t.eventId == route.params.id))
+            eventTickets: computed(() => AppState.tickets.filter(t => t.accountId == AppState.account.id))
         }
     }
 }

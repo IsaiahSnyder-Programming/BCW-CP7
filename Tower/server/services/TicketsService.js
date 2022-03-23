@@ -23,6 +23,7 @@ class TicketsService {
           return {
             ticketId: goerTicket.id,
             eventId: query.eventId,
+            accountId: goerTicket.EventGoer.id,
             ...goerTicket.EventGoer
           }
         })

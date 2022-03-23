@@ -1,5 +1,5 @@
 <template>
-    <div class="home container-fluid flex-grow-1 d-flex flex-column text-light justify-content-start">
+  <div class=" container-fluid flex-grow-1 d-flex flex-column text-light justify-content-start">
 
     <!-- STUB Search Bar -->
     <div class="row d-flex justify-content-between">
